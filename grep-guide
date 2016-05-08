@@ -1,0 +1,11 @@
+#some grep methods to match 'and,or '
+
+         ---OR---
+grep -E 'Tech|Sales' employee.txt
+grep 'Tech\|Sales' employee.txt
+grep -e pattern1 -e pattern2 filename
+
+        ---AND----
+grep -E 'pattern1.*pattern2' filename
+
+grep -E 'pattern1.*pattern2|pattern2.*pattern1' filename

@@ -1,0 +1,28 @@
+#!/bin/bash
+for hosts in `cat olts`;
+ do 
+    ping -c 2 $hosts >/dev/null 2>&1; 
+    if [ $? -eq 0 ]; 
+     then
+    echo ${hosts}" OK"
+        else
+    echo ${hosts}" unreachable"
+        fi
+ done
+ 
+ 
+ 
+ #olts contains hostnames or ip for example
+    pts-olt1.classictech.net
+		cbl-olt1.classictech.net
+		bdn-olt1.classictech.net
+		jwl-olt1.classictech.net
+		brt-olt1.classictech.net
+		htd-olt1.classictech.net
+		klk-olt1.classictech.net
+		bkt-olt1.classictech.net
+		ctw-olt1.classictech.net
+		bnp-olt1.classictech.net
+		btw-olt1.classictech.net
+		sks-olt1.classictech.net
+		brj-olt1.classictech.net

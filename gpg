@@ -1,0 +1,13 @@
+#using gpg
+
+
+    #encrypt
+    gpg -c filename
+    #decrypt
+    gpg filename.gpg
+    
+    script /automate
+    #To encrypt a file called "backup.txt"
+    gpg --yes --no-use-agent --batch --passphrase a1234abc -c backup.txt
+    #To decrypt the encrypted file "backup.txt.gpg"
+    gpg --no-use-agent --passphrase a1234abc backup.txt.gpg

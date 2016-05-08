@@ -1,0 +1,15 @@
+Enable indentation 
+
+root@site1:~# cat ~/.vimrc 
+set cindent
+set smartindent
+set autoindent
+set expandtab
+set tabstop=2
+set shiftwidth=2
+set cinkeys=0{,0},:,0#,!,!^F
+
+:so %
+:wq!
+
+ 

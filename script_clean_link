@@ -1,0 +1,101 @@
+#!/bin/bash
+
+#Goal is to get ping avg reponse time from centos mirror lists domains
+#we can use python or beautiful soup to extract domains but i just simply copy pasted from http://www.centos.org/download/mirrors/ 
+#First of all replacing multiple tabs and whitespaces with single whitespace
+#cat unclean_domainfile | sed -e 's/[[:space:]]\+/ /g'  > stage1.file;
+
+####output examples of above
+#US VA Virginia Tech http://mirror.cs.vt.edu/pub/CentOS/ ftp://mirror.cs.vt.edu/pub/CentOS/ 
+#US VA Virginia Tech Transportation Institute http://mirror.vtti.vt.edu/centos/ ftp://mirror.vtti.vt.edu/centos/ 
+#US VA Yellow Fiber Networks http://mirror.yellowfiber.net/centos/ 
+
+#further cleaning stage 2  remove strings before http 
+#cat unclean_domainfile | sed -e 's/[[:space:]]\+/ /g' | sed -n -e 's/^.*http:/http:/p' > stage2.file
+
+####example output
+#http://centos.eecs.wsu.edu/ ftp://centos.eecs.wsu.edu/centos/ rsync://centos.eecs.wsu.edu/centos/
+#http://centos.mirrors.tds.net/pub/linux/centos/ ftp://centos.mirrors.tds.net/pub/linux/centos/ rsync://centos.mirrors.tds.net/CentOS/
+#http://mirror.cs.uwp.edu/pub/centos/
+
+#we have now three(3) fields http ftp and rsync field so we can use "awk" or "cut" to direct "http" "ftp" or "rsync" to different files + weneed to remove empty lines with sed
+#cat unclean_domainfile | sed -e 's/[[:space:]]\+/ /g' | sed -n -e 's/^.*http:/http:/p' | awk '{ print $1; }'  | sed '/^$/d' > httpweb.list
+#we have some problems with field 2 and 3 where ftp and rsync links mixup
+#example
+#cat unclean_domainfile | sed -e 's/[[:space:]]\+/ /g' | sed -n -e 's/^.*http:/http:/p' | awk '{ print $2; }'  | sed '/^$/d' 
+#rsync://mirror.chpc.utah.edu/pub/centos/
+#ftp://mirrors.xmission.com/centos/
+#ftp://mirrors.advancedhosters.com/centos/
+
+#we can simply use grep to separate ftp with rsync
+#cat unclean_domainfile | sed -e 's/[[:space:]]\+/ /g' | sed -n -e 's/^.*http:/http:/p' | awk '{ print $2; }' | sed '/^$/d' | grep -Ei "ftp://" > ftp.list
+#cat unclean_domainfile | sed -e 's/[[:space:]]\+/ /g' | sed -n -e 's/^.*http:/http:/p' | awk '{ print $2; }' | sed '/^$/d' | grep -Ei "rsync://" > rsync.list
+
+#we now have 
+#httpweb.list ftp.list and rsync.list files ready but we need to get ping result
+#now at first we clean httpweb.list and get only domain part for example from "http://centos.mirrors.tds.net/pub/linux/centos/" we need to get only "centos.mirrors.tds.net"
+#we can use "tr" or "sed" backed with  "cut". tr command with -s = supress repeating charactre (here '/')
+#cat httplist | tr -s '/' '/' | cut -d'/' -f2  > httpfinal.list
+### using sed for same ,here separator is '#'
+#cat httplist | sed 's#//#/#g' | cut -d'/' -f2  > httpfinal.list
+#Same method can be used to clean rsync and ftp lists
+
+#finally pinging part
+#Im using for loop here to iterate domains and get ping reply (ping count is 5 , grep will search for keyword "avg" and output will be appendedto file )
+#for i in `cat httpfinal.list` ; do printf $i" " >> httpreport.log ; ping -c 5 $i | grep avg >> report.log; echo "" >> httpreport.log; done;
+
+#Final script:- here $1 is the input argument file name given which will be processed by this script
+exec 2> /dev/null
+echo ""
+[ -e /tmp/httpreport.log ] && rm -rf /tmp/httpreport.log || echo "Removing old httplist logs"
+[ -e /tmp/ftpdomain.list ] && rm -rf /tmp/ftpdomain.list || echo "Removing old ftplist logs"
+[ -e /tmp/rsyncdomain.list ] && rm -rf /tmp/rsyncdomain.list || echo "Removing old rsynclist logs"
+[ -e /tmp/stage1.file ] && rm -rf /tmp/stage1.file || echo "Removing old staging logs"
+[ -e /tmp/httpdomain.list ] && rm -rf /tmp/httpdomain.list || echo "Removing old httpdomianlist logs"
+echo ""
+if [ -z $1 ];then 
+echo "Please supply a valid file. Syntax: <path-to-script>/script_clean_link  /<path-to>/<filename>"
+elif [ -e $1 ]; then 
+echo "file used: "$1;
+cat $1 | sed -e 's/[[:space:]]\+/ /g'   | sed -n -e 's/^.*http:/http:/p' > /tmp/stage1.file;
+cat /tmp/stage1.file | awk '{ print $1; }' | tr -s '/' '/' | cut -d'/' -f2 | tee /tmp/httpdomain.list
+cat /tmp/stage1.file | awk '{ print $2; }' | grep -Ei "ftp://" |tr -s '/' '/' | cut -d'/' -f2 | tee /tmp/ftpdomain.list
+cat /tmp/stage1.file | awk '{ print $2; }' | grep -Ei "rsync://" | tr -s '/' '/' | cut -d'/' -f2 | tee /tmp/rsyncdomain.list
+#above   tee command reads from standard input and write to standard output and files for more info "man tee"
+echo "##########################Working please wait ... ##################################";
+echo you can view report file with  "  tail -f /tmp/httpreport.log"
+
+for domains in `cat /tmp/httpdomain.list` ; do 
+printf $domains" " >> /tmp/httpreport.log ; 
+ping -c 3 $domains | grep avg >> /tmp/httpreport.log; echo "" >> /tmp/httpreport.log; done;
+
+for domains in `cat /tmp/ftpdomain.list` ; do
+printf $domains" " >> /tmp/httpreport.log ;
+ping -c 3 $domains | grep avg >> /tmp/ftpreport.log; echo "" >> /tmp/ftpreport.log; done;
+
+for domains in `cat /tmp/rsyncdomain.list` ; do
+printf $domains" " >> /tmp/httpreport.log ;
+ping -c 3 $domains | grep avg >> /tmp/rsyncreport.log; echo "" >> /tmp/rsyncreport.log; done;
+
+else
+echo "Please supply valid file and run again"
+fi
+
+cat /tmp/httpreport.log | grep -vi "rtt" | sed '/^$/d' > /tmp/httpsitedown.log
+cat /tmp/httpreport.log | grep -i "rtt"  | sed '/^$/d' > /tmp/httpsiteup.log
+cat /tmp/ftpreport.log | grep -vi "rtt" | sed '/^$/d' > /tmp/ftpsitedown.log
+cat /tmp/ftpreport.log | grep -i "rtt"  | sed '/^$/d' > /tmp/ftpsiteup.log
+cat /tmp/rsyncreport.log | grep -vi "rtt" | sed '/^$/d' > /tmp/rsyncsitedown.log
+cat /tmp/rsyncreport.log | grep -i "rtt"  | sed '/^$/d' > /tmp/rsyncsiteup.log
+echo " "
+echo "Responding HTTP sites file:    /tmp/httpsiteup.log"
+echo "Unresponsive HTTP sites file:  /tmp/httpsitedown.log"
+echo "Responding FTP sites file:    /tmp/ftpsiteup.log"
+echo "Unresponsive FTP sites file:  /tmp/ftpsitedown.log"
+echo "Responding RSYNC sites file:    /tmp/rsyncsiteup.log"
+echo "Unresponsive RSYNC sites file:  /tmp/rsyncsitedown.log"
+
+echo "These file are auto removed in next run so backit up if needed"
+
+
+

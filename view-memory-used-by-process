@@ -1,0 +1,26 @@
+#View memory used by apache2
+
+ps -C apache2 -O rss | grep -v "RSS" | awk '{ sum+=$2;} END { print sum/1024 " MB"; }'
+
+#-C = command or binary used to start process
+#-O = options
+
+#Alternate way :- view memory used by nginx and apache
+
+ps aux | grep  -E "nginx|apache" | grep -v "grep" | awk '{ sum+=$6; } END { print sum/1024 " MB"; }'
+
+#some grep methods to match 'and,or '
+
+         ---OR---
+grep -E 'Tech|Sales' employee.txt
+grep 'Tech\|Sales' employee.txt
+grep -e pattern1 -e pattern2 filename
+
+        ---AND----
+grep -E 'pattern1.*pattern2' filename
+
+grep -E 'pattern1.*pattern2|pattern2.*pattern1' filename
+
+
+
+

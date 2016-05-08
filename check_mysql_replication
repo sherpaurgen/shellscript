@@ -1,0 +1,25 @@
+ check mysql replication status with bash script
+[root@DBASE01 ~]# crontab -l
+45 14,21 * * * /root/dbstatus.sh
+
+
+[root@DBASE01 ~]# cat dbstatus.sh
+#!/bin/bash
+#/usr/bin/mysql -uroot -pP@s#sw99rd -e "show slave status\G;" > /root/status.txt
+/usr/bin/mysql  -e "show slave status\G;" > /root/status.txt
+i=0
+if grep "Slave_IO_Running: Yes" /root/status.txt;
+then
+((i=i+1))
+fi
+if grep "Slave_SQL_Running: Yes" /root/status.txt
+then
+((i=i+1))
+fi
+##########
+if [ $i -ne 2 ]
+then
+ /bin/cat /root/status.txt | mail -s "Mysqlslave replication status for AusIT" alerts@nepallink.net
+else
+    :              ##colons
+fi

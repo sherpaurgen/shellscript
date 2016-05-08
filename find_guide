@@ -1,0 +1,74 @@
+Find executable file and directory
+
+# find . -executable -type f
+
+# find . -executable -type d
+
+# find . -executable      #finds file and dir executable
+
+Find file/dir owned by user root
+
+# find . -user root -iname '*.py'
+
+Find file owned by group.
+ 
+# find . -group developer
+
+Find file without permission 554
+
+# find . -type f ! -perm 0554
+
+Find file with SUID bit set
+
+# find /usr/bin/ -type f  -perm /4000 -exec ls -l {} \;
+ 
+Find empty file
+
+# find /tmp -type f -empty
+
+Find files older than 15 days and remove
+
+# find /old_backup/ -maxdepth 1 -name '*.gz' -mtime +15 -exec rm {} \; > /secondary/old_data_removed.log 2>&1
+
+find file based on minute "mmin option"
+
+# find $LOCATION -name $REQUIRED_FILES -type f -mmin +360 -delete
+
+Files that were modified between 50 to 100 days ago.
+
+# find / -mtime +50 –mtime -100
+
+Find file by given size
+
+# find / -size +50M -size -100M
+
+Display the 5 largest file in the current directory and its subdirectory. This may take a while to execute depending on the total number of files the command has to process.
+
+# find . -type f -exec ls -s {} \; | sort -n -r | head -5
+
+Similary when sorted in ascending order, it would show the smallest files first
+
+# find . -type f -exec ls -s {} \; | sort -n | head -5
+
+# find directory that doesnt contain "*.sql" files
+
+for f in $(find . -maxdepth 2 -type d); do if [[ $(ls -1 $f | grep '.sql$'|wc -l) == 0 ]] ; then echo $f; fi; done
+
+# find file excluding some directory
+
+find . -type d \( -name media -o -name images -o -name backups \) -prune -o -print
+
+find . - Find all files in this directory (.)
+
+-type d - directory or folder
+
+-prune - ignore the proceding path of ...
+
+\( -name media -o -name images -o -name backups \) - The -o simply means OR
+
+-o -print - Then if no match print the results, (prune the directories and print the remaining results)
+
+As always in Linux there are many ways to achieve the same result, and the patient may prefer to build up the find command using the path attribute. Please note that you may need to specify the path with a prefix of "./" and no trailing slash.
+find . -path './media' -prune -o -path './images' -prune -o -path './backups' -prune -o -print
+
+An important difference here is that the first command will prune ANY directory in the path that matches the name, such as './media' and './public/media', where as the second format will only prune the explict path './media'.

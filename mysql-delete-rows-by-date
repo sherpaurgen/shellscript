@@ -1,0 +1,5 @@
+#!/bin/bash 
+MYSQL_USER="dbuser100" 
+MYSQL_PASS="password" 
+MYSQL_DB="dbname" 
+mysql  -u\${MYSQL_USER} -p\${MYSQL_PASS} \${MYSQL_DB} -e "DELETE FROM SystemEvents WHERE ReceivedAt < DATE_SUB(CURDATE(),INTERVAL 10 DAY)"

@@ -1,0 +1,40 @@
+http://toroid.org/git-website-howto
+
+yum install git git-core
+mkdir  /home/user1/server_project
+cd /home/user1/server_project
+
+chown user1:user1 /home/user1/server_project
+chmod g+s /home/user1/server_project
+
+cd /home/user1/server_project
+git init --bare
+
+git config core.sharedRepository true #skip this step if you want to have custom location(eg Web root) to checkout latest tree for 
+
+#cat hooks/post-receive 
+
+#!/bin/bash
+GIT_WORK_TREE=/var/www/html/www git checkout -f
+
+makedir /var/www/html/www
+chown user1:user1 /var/www/html/www
+
+
+# core.sharedRepository accepts below values:-
+# umask (or false) – the default value. Git uses permissions reported by umask
+#    group (or true) – makes the repository group-writable
+#    all (or world or everybody) – same as group, but make the repository readable by all users
+#    0xxx: 0xxx is an octal number and each file will have mode 0xxx. 0xxx will override users umask value. 0640 will create a repository which is group-readable but not writable. 0660 is equivalent to group.
+
+#ON CLIENT SIDE
+
+git clone user1@192.168.0.11:/home/user1/project1
+
+#now start creating and pushing
+
+git push origin master
+
+
+#IF git is moved on server then eg. to /home/user1/box2
+git config remote.origin.url user1@192.168.0.11:/home/user1/box2

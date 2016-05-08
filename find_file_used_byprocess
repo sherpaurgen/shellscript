@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ -d /proc/$1 ]; then 
+ls -l /proc/$1/fd
+else
+echo "Enter valid pid"
+fi
+
+#or use "lsof -p <process id>"

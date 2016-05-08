@@ -1,0 +1,62 @@
+xargs can be used to process input from another program
+
+[user1@cent ~]$ echo {1..9}
+1 2 3 4 5 6 7 8 9
+[user1@cent ~]$ echo {1..9} | xargs         #xargs by default runs echo command
+1 2 3 4 5 6 7 8 9
+
+#to deal with one argument at a time , note line breaks
+
+echo {1..9} | xargs -n1   
+1
+2
+3
+4
+5
+6
+7
+8
+9
+
+#deal with 3 arguments at time
+
+echo {1..9} | xargs -n3  
+1 2 3
+4 5 6
+7 8 9
+
+###examples
+
+touch myfile{1..9}.mp3
+touch myfile{1..9}.pdf
+touch myfile{1..9}.txt
+
+find . -maxdepth 1 -name  "*.jpg"  | xargs tar -cvzf jpeg.tar.gz
+#to verify
+tar -tzf jpeg.tar.gz  
+find . -maxdepth 1 -name  "*.jpg" -delete
+
+
+ls | xargs -n 1 chgrp cdrom   #argument for xargs are placed at end
+OR  using placeholder specifier use  "-I  {}"
+ls | xargs -I {}  -n 1 chgrp webdata {}
+
+
+$ find . -name "*.bak" -print0 | xargs -0 -I {} mv {} ~/old.files
+
+You can rename {} to something else. In the following example {} is renamed as file. This is more readable as compare to previous example:
+$ find . -name "*.bak" -print0 | xargs -0 -I file mv file ~/old.files
+
+Where,
+
+-0 If there are blank spaces or characters (including newlines) many commands will not work. This option take cares of file names with blank space.
+-I Replace occurrences of replace-str in the initial-arguments with names read from standard input. Also, unquoted blanks do not terminate input items; instead the separator is the newline character.
+
+Examples:-
+
+# screen -ls | grep "Detached" | awk '{ print $1; }' | cut -d'.' -f2- | xargs -I {} -n 1 screen -S {} -X quit
+
+
+# find file older than 15 days and delete
+/usr/bin/find /secondary/public_html_backup/ -maxdepth 1 -name '*.gz' -mtime +15 -exec rm {} \; > /secondary/old_data_removed.log 2>&1
+

@@ -1,0 +1,37 @@
+Location        Region  Sponsor HTTP location   FTP Location    Rsync Location
+Africa  Egypt   CityNet Host Data Center Egypt  http://mirror.citynethost.com/centos/
+Asia    Singapore       Vodien Internet Solutions Pte Ltd.      http://mirror.vodien.com/centos/
+Asia    Taiwan  Computer Center, Shu-Te University      http://ftp.stu.edu.tw/Linux/CentOS/     ftp://ftp.stu.edu.tw/Linux/CentOS/
+Asia    Taiwan  Department of Computer Science and Engineering, Yuan Ze University      http://ftp.yzu.edu.tw/Linux/CentOS/     ftp://ftp.yzu.edu.tw/Linux/CentOS/      rsync://ftp.yzu.edu.tw/Linux/CentOS/
+Asia    Taiwan  Department of Computer Science National Chiao Tung University   http://centos.cs.nctu.edu.tw/   ftp://linux.cs.nctu.edu.tw/CentOS/      rsync://linux.cs.nctu.edu.tw/CentOS/
+Asia    Taiwan  HiNet IDC       http://mirror01.idc.hinet.net/CentOS/   ftp://mirror01.idc.hinet.net/CentOS/
+Asia    Taiwan  I-Shou University       http://ftp.isu.edu.tw/pub/Linux/CentOS/ ftp://ftp.isu.edu.tw/pub/Linux/CentOS/  rsync://ftp.isu.edu.tw/centos/
+Asia    Taiwan  Kun Shan University     http://ftp.ksu.edu.tw/pub/CentOS/       ftp://ftp.ksu.edu.tw/pub/CentOS/
+Asia    Taiwan  National Center for High-Perf Computing http://ftp.twaren.net/Linux/CentOS/     ftp://ftp.twaren.net/Linux/CentOS/
+Asia    Taiwan  Southern Taiwan University of Science and Technology    http://ftp.stust.edu.tw/pub/Linux/CentOS/       ftp://ftp.stust.edu.tw/pub/Linux/CentOS/
+Asia    Thailand        Bangmod Hosting http://mirrors.bangmodhosting.com/centos/               rsync://mirrors.bangmodhosting.com/centos/
+Asia    Thailand        Hosting.in.th   http://mirrors.hosting.in.th/centos/
+Asia    Thailand        Kasetsart University    http://mirror1.ku.ac.th/centos/
+Asia    Thailand        Prince of Songkla University, Hatyai cam        http://mirrors.psu.ac.th/pub/centos/    ftp://mirrors.psu.ac.th/pub/centos/     rsync://mirrors.psu.ac.th/centos/
+Asia    Thailand        TOT Public Company Limited      http://mirror2.totbb.net/centos/        ftp://mirror2.totbb.net/centos/ http://mirror2.totbb.net/centos/
+Asia    Uzbekistan      Comnet ISP      http://mirror.comnet.uz/centos/
+Asia    Vietnam DIGIPOWER Co.,ltd       http://mirrors.digipower.vn/centos/     ftp://mirrors.digipower.vn/centos/      rsync://mirrors.digipower.vn/centos/
+Asia    Vietnam Fibo Web        http://mirrors.fibo.vn/centos/
+Asia    Vietnam HanoiLUG        http://virror.hanoilug.org/centos/
+Asia    Vietnam VietHosting.vn  http://mirrors.viethosting.vn/centos/           rsync://mirrors.viethosting.vn/centos/
+Asia    Vietnam Viettel IDC     http://centos-hcm.viettelidc.com.vn/
+Asia    Vietnam Viettel IDC     http://centos-hn.viettelidc.com.vn/
+Asia    Vietnam VinaHost Co., Ltd       http://mirrors.vinahost.vn/centos/
+Asia    Vietnam VONLINE http://mirrors.vonline.vn/centos/
+Canada  BC      eSecureData Inc.        http://mirror.esecuredata.com/centos/
+Canada  BC      Simon Fraser University http://mirror.its.sfu.ca/mirror/CentOS/
+Canada  MB      LES.NET http://centos.les.net/
+Canada  MB      Manitoba Unix User Group        http://www.muug.mb.ca/pub/centos/       ftp://ftp.muug.mb.ca/pub/centos/        rsync://rsync.muug.mb.ca/centos/
+Canada  MB      Westman Communications Grp      http://centos.westmancom.com/   ftp://centos.westmancom.com/
+Canada  NS      Dalhousie University    http://mirror.its.dal.ca/centos/        ftp://mirror.its.dal.ca/centos/ rsync://mirror.its.dal.ca/centos/
+Canada  ON      Atwab Networks  http://centos.mirrors.atwab.net/        ftp://centos.mirrors.atwab.net/ rsync://centos.mirrors.atwab.net/shares/
+Canada  ON      Clearcable Networks     http://centos.mirror.rafal.ca/  ftp://centos.mirror.rafal.ca/pub/CentOS/        rsync://centos.mirror.rafal.ca/CentOS
+Canada  ON      Cogeco Inc.     http://less.cogeco.net/CentOS/  ftp://less.cogeco.net/CentOS/
+Canada  ON      Netflash Internet Solutions     http://mirror.netflash.net/centos/      ftp://mirror.netflash.net/centos/       rsync://mirror.netflash.net/centos/
+Canada  ON      U. of Waterloo Computer Science Club    http://mirror.csclub.uwaterloo.ca/centos/       ftp://mirror.csclub.uwaterloo.ca/centos/        rsync://mirror.csclub.uwaterloo.ca/centos/
+

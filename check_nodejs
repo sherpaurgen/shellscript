@@ -1,0 +1,13 @@
+#!/bin/bash
+sudo service hhws status > /tmp/nodelog.txt
+if grep "stop" /tmp/nodelog.txt;
+   then
+       sudo node /var/hhws/src/server.js;
+       sudo service hhws start;
+fi
+
+sudo service hhws status > /tmp/nodelog.txt
+if grep "stop" /tmp/nodelog.txt;
+then
+echo "Service Nodejs is stopped please check" | mail -s "Nodejs stopped" urgen.designoffshore@gmail.com,subhod30@gmail.com
+fi

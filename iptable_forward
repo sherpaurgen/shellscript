@@ -1,0 +1,7 @@
+iptables -t nat -A PREROUTING -i venet0  -p tcp --dport 80 -m conntrack --ctstate NEW -j DNAT --to 98.59.254.163:80
+
+iptables -t nat -A PREROUTING -i venet0  -p tcp --dport 443 -m conntrack --ctstate NEW -j DNAT --to 98.59.254.163:443
+
+iptables -t nat -A PREROUTING -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+
+iptables -A POSTROUTING -t nat -j MASQUERADE
