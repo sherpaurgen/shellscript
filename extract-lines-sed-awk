@@ -1,0 +1,32 @@
+Host/Domain Summary: Messages Received 
+---------------------------------------
+ msg cnt   bytes   host/domain
+ -------- -------  -----------
+    415     5416k  abc.com
+     13    19072   xyz.localdomain
+
+Senders by message count
+------------------------
+    415   alert@example.com
+     13   root@jelly.localdomain
+
+Recipients by message count
+---------------------------
+    506   alert@apple.com            <= Extracter from here to ...
+     70   info@pafpro.org.us
+     ..
+     ...
+     19   gems@gmail.com
+     17   info@aol.com
+     13   hemdem@gmail.com           <= Extract ends here
+
+Senders by message size
+-----------------------
+   5416k  alert@google.com
+...
+ ...
+
+
+awk '/Recipients by message count/{p=1}!$0{p=0}p' input_file
+       OR
+sed -n '/Recipients by message count/,/^\s*$/ p' files.txt  | sed -n '1!{2!{$!p}}'
