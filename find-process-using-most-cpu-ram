@@ -1,0 +1,5 @@
+# find process using most CPU
+ps -eo pcpu,pid,user,args | sort -k 1 -r | head -10
+
+# find process using most memory
+ps -eo pmem,pid,user,args | sort -k 1 -r | head -10
