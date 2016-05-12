@@ -1,0 +1,11 @@
+# calculate website hits in certain time period
+
+cat /var/log/nginx/access.log | egrep '\[12/May/2016:16:1[0-2]' | awk '{ print $1; }' | sort | uniq -c | awk '{ sum+=$1 } END { print sum }' 
+
+# calculate total webserver hits
+
+awk '{print $4}' /var/log/nginx/access.log | cut -d: -f1 | sort | uniq -c
+
+# find ip address and number of hits they made during specific period of time here from 16:10 to 16:19
+
+cat /var/log/nginx/access.log | egrep '\[12/May/2016:16:1[0-9]' | awk '{ print $1; }' | sort | uniq -c | sort -nr
