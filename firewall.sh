@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#place it in /usr/local/bin/iptables.sh
 IPT="/sbin/iptables"
 
 ## Flush and reset counters
