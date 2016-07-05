@@ -23,7 +23,7 @@ class PowerRouter:
             exitcode=subprocess.call(["ping", "-c 2",self.ipaddress],stdout=FNULL,stderr=FNULL)
             if exitcode:
                 PowerRouter.counter+=3
-                time.sleep(180)
+                time.sleep(180)    # sleep for 3 minutes
                 SERVER="localhost"
                 server=smtplib.SMTP(SERVER)
                 message=MIMEText("Power is down since "+ str(PowerRouter.counter) +" minutes ago for " + self.description + str(self.ipaddress))
