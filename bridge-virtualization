@@ -1,0 +1,20 @@
+ubuntu 14.04 LTS
+
+/etc/network/interfaces
+
+iface em1 inet manual
+auto br0
+iface br0 inet static
+        address 100.126.1.105
+        netmask 255.255.255.0
+        network 100.126.1.0
+        broadcast 100.126.1.255
+        gateway 100.126.1.1
+        dns-nameservers 202.94.66.2
+        bridge-ifaces em1
+        bridge-ports em1
+        up ifconfig em1 up
+        bridge_stp off
+        bridge_fd 0
+        bridge_maxwait 0
+        up route add -net 202.94.66.0/26 gw 202.94.66.1 dev br0
