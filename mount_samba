@@ -1,0 +1,1 @@
+mount -t cifs //20.49.64.25/Users/urgen/Desktop/share/ -o username=urgn,password=PaSsw9rd /mnt/
