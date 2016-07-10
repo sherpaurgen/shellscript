@@ -1,0 +1,47 @@
+ Warning !! #alwsys run zimbra with zimbra user
+# emaillistldap.txt
+cn: Jack 
+displayName: Jack Johnson
+givenName: Jack
+sn: johnson
+zimbraMailDeliveryAddress: Jack@example.com
+cn: james ryan
+displayName: James Ryan
+givenName: James
+sn: Ryan
+zimbraMailDeliveryAddress: James@example.com
+
+# insert newline between every 5 lines for the email holders\
+sed '0~5 a\\' /tmp/emaillistldap.txt  > /tmp/clean.txt
+awk -v RS= '{$1=$1}1' emaillistldap.txt
+
+while read lines; do 
+    # zmprov ga $email | head | grep -v "objectClass" | grep -v "#" | tr '\n' ' ' > stage1.txt
+    # dn=`cat stage1.txt | grep -m 1 -o -P '(?<=displayName:).*(?=givenName)' | awk '{ $1=$1 };1'`
+    # gn=`cat stage1.txt | grep -m 1 -o -P '(?<=givenName:).*(?=mail:)' | awk -F "mail" '{ print $1; }' |awk '{ $1=$1 };1'`
+    # sn=`cat stage1.txt | grep -m 1 -o -P '(?<=sn:).*(?=\s*)'| awk '{ $1=$1};1'| cut -d' ' -f1`
+    # lcase=`echo $gn | tr "[:upper:]" "[:lower:]"`
+
+        #if [[  -z "$gn" ]]; then
+        #    pss=""
+        #else
+        #    pss=$lcase"123"
+        #fi
+    email=`echo $lines | grep -m 1 -o -P '(?<=zimbraMailDeliveryAddress:).*(?=\s*)' | awk '{ $1=$1 };1'`
+    cn=`echo $lines | grep -m 1 -o -P '(?<=cn:).*(?=displayName:)' | awk '{ $1=$1 };1'`
+    dn=`echo $lines | grep -m 1 -o -P '(?<=displayName:).*(?=givenName)' | awk '{ $1=$1 };1'`
+    gn=`echo $lines | grep -m 1 -o -P '(?<=givenName:).*(?=sn:)' | awk '{ $1=$1 };1'`
+    sn=`echo $lines | grep -m 1 -o -P '(?<=sn:).*(?=zimbraMailDeliveryAddress:)' | awk '{ $1=$1 };1'`
+        lcase=`echo $gn | tr "[:upper:]" "[:lower:]"`
+        pss=$lcase"#123"
+        #store email address and password in some file 
+        echo $email $pss >> /tmp/classicemailpass-final.txt
+    echo zmprov createAccount ${email}  ${pss}  displayName \'${dn}\' givenName ${gn} sn ${sn} >> /tmp/email.text
+#       sleep 3
+done < $1 
+
+
+Now run /tmp/email.text
+done emails created
+
+imapsync --host1 mail.example.com.np --ssl1  --user1 dummy@example.com.np --password1  "dummy123" --host2 mx.example.com.np  --ssl2 --user2 dummy@example.com.np --password2  "123dummy"
