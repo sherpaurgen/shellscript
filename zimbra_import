@@ -1,4 +1,5 @@
  Warning !! #alwsys run zimbra with zimbra user
+zmprov -l  gaa -v|egrep 'cn:|sn:|displayName|givenName|zimbraMailDeliveryAdd' > /tmp/account1.txt
 # emaillistldap.txt
 cn: Jack 
 displayName: Jack Johnson
