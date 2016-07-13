@@ -1,3 +1,6 @@
+# run by using\
+# nohup ./send_power.py &
+
 #!/usr/bin/python
 # classic watch.classic.com.np
 import os
@@ -58,3 +61,7 @@ class PowerRouter:
 
 # router2=PowerRouter("8.8.4.4","bhaktapur UPSbattery")
 # router2.scan()
+# send.power.py
+# #!/bin/bash
+pgrep send_power  || echo "Process not found for \"send_power.py\" "
+pgrep send_power && kill -9  `pgrep send_power` && echo "..script stopped"
