@@ -46,3 +46,4 @@ Now run /tmp/email.text
 done emails created
 
 imapsync --host1 mail.example.com.np --ssl1  --user1 dummy@example.com.np --password1  "dummy123" --host2 mx.example.com.np  --ssl2 --user2 dummy@example.com.np --password2  "123dummy"
+imapsync --exclude Emailed /Contacts --host1 mail.example.com  --ssl1 --user1 josh@example.com --password1  "josh#123" --useheader ALL --host2 mx.example.com  --ssl2 --user2   josh@example.com --password2  "josh#123" --useheader ALL
