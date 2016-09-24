@@ -1,0 +1,4 @@
+nmap -v -p 22 192.168.0.11-33,120-122  #reveal standard 22 listeners
+cat ~/.ssh/id_rsa.pub | ssh user@machine "mkdir ~/.ssh; cat >> ~/.ssh/authorized_keys"
+pssh -h ipadd.txt  -l ubuntu -A -i "sudo netstat -ntlp;"
+sshpass -f /tmp/pass parallel-ssh -I -A -h ipadd.txt -l ubuntu "sudo ls" < /tmp/pass
