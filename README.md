@@ -105,9 +105,7 @@ grep -E 'pattern1.*pattern2|pattern2.*pattern1' filename
     done
     echo $k
 
-
-
-
+awk ' $1 < 220 ' score | wc -l
 
 
 
