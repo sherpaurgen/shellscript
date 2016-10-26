@@ -1,4 +1,4 @@
- BASH shellscript and Python script 
+BASH shellscript and Python script 
 scripts for daily use
 requirements : linux, python version 2.7.x
 
@@ -101,7 +101,14 @@ grep -E 'pattern1.*pattern2' filename
 
 grep -E 'pattern1.*pattern2|pattern2.*pattern1' filename
 
-
+    k=0
+    for i in `cat score`; do 
+    if [ $i -ge 219 ] 
+    then 
+      k=$((k+1))
+    fi
+    done
+    echo $k
 
 
 
