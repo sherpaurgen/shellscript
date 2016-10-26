@@ -2,11 +2,6 @@ BASH shellscript and Python script
 scripts for daily use
 requirements : linux, python version 2.7.x
 
-Basics
-
-scripts
-=========
-
 Delineate(correctly represent) variables:-
 
 
