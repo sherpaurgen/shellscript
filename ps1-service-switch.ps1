@@ -26,3 +26,6 @@ else {
         Get-Service $job -ComputerName $standbyserver_hostname | Stop-Service
         } 
 }
+#if($counter -gt 0){
+#restart-computer
+#}
