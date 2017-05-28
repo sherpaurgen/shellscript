@@ -1,0 +1,9 @@
+    #set system clock
+  date --set="May 28 2014 11:19:10"
+  hwclock -r  # display hardware clock
+  hwclock -w  # set hardware clock same as systemclock
+  
+  #change time zone  
+rm /etc/localtime
+ln -s /usr/share/zoneinfo/GMT /etc/localtime
+  
