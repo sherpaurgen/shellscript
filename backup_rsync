@@ -1,0 +1,18 @@
+#!/bin/bash
+
+LOG=/var/log/sync.log
+
+exec 1>>$LOG
+exec 2>>$LOG
+
+echo
+date
+
+# The sync_files_log.txt will grow into a huge file if not truncated regularly.
+> /var/log/sync_files_log.txt
+
+echo "Syncing files..."
+
+date >> /var/log/sync_files_log.txt
+/usr/bin/rsync -a -v -z --progress --stats -p --delete --exclude 'pbxctrl-license.xml' --exclude 'pbx.xml' --exclude 'pbxctrl-failover.xml' root@199.244.77.217:/usr/local/pbx/ /usr/local/pbx/ 2>&1 >> /var/log/sync_files_log.txt
+#/usr/bin/rsync -a -v -z --progress --stats -p --delete  root@99.44.77.22:/usr/local/pbx/ /usr/local/pbx/ 2>&1 >> /var/log/sync_files_log.txt
