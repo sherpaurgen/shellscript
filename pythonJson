@@ -1,0 +1,28 @@
+import urllib2
+import json,datetime
+def printResults(data):
+    theJSON = json.loads(data)
+    # if "title" in theJSON["metadata"]:
+    #     print theJSON["metadata"]["title"]
+        # print theJSON["metadata"]["count"]
+        # print theJSON["features"][0]["properties"]["place"]
+        # date =  theJSON["features"][0]["properties"]["time"]/1000   #the time is in milliseconds so converted to second
+        # print datetime.datetime.utcfromtimestamp(date)
+    for i in theJSON["features"]:
+        print i
+        if i["properties"]["mag"] >= 4.0:
+             print i["properties"]["mag"], i["properties"]["place"]
+
+def main():
+    urlData="https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_month.geojson"
+    webUrl=urllib2.urlopen(urlData)
+    print webUrl.getcode()   # prints http status code like 200,300,500,400
+    if(webUrl.getcode()==200):
+        data=webUrl.read()
+        printResults(data)
+    else:
+        print "Error in server"
+
+
+if __name__=="__main__":
+    main()
