@@ -1,5 +1,5 @@
 #!/bin/bash
-grep 'status=sent' /var/log/maillog | grep -v "axonadvisers" | grep "to=" |  awk -F"[<>]" '{print $2}' | sort | uniq -c |  awk '{ print $1" "$2; }' | sort -nr > /var/log/summary_`date +%F-%H`.txt
+grep 'status=sent' /var/log/maillog | grep -v "axonadvis" | grep "to=" |  awk -F"[<>]" '{print $2}' | sort | uniq -c |  awk '{ print $1" "$2; }' | sort -nr > /var/log/summary_`date +%F-%H`.txt
 
 grep -wv "1" /var/log/summary_`date +%F-%H`.txt > /var/log/sorted_summary_`date +%F-%H`.txt
 
