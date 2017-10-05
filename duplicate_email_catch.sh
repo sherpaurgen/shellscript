@@ -17,4 +17,4 @@ sed -i '1i--TimesSent--RcptEmail--' ${filename}
     
         
 #test email for me only
-echo "This is an automated report. Please see the attached txt file to check if duplicate emails are sent,if file is blank then no duplicates are sent" | /usr/bin/mutt -a "${filename}" -e "my_hdr From:system@axonadvisers.com" -s "No reply: Duplicate Summary" --  abcd@gmail.com
+echo "This is an automated report. Please see the attached txt file to check if duplicate emails are sent,if file is blank then no duplicates are sent" | /usr/bin/mutt -a "${filename}" -e "my_hdr From:system@aexample.com" -s "No reply: Duplicate Summary" --  abcd@gmail.com
