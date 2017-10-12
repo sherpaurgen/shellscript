@@ -22,7 +22,7 @@ totdup1=`wc -l ${tmpdir}/dup_sum_1hr.txt |  awk '{ print $1; }'`
 echo "Note: If value is blank or 0(zero) then the match is not found" > /tmp/report.txt
 echo "# For past 1 hour :" >> /tmp/report.txt
 echo "Total mail sent past hour-> $totmph" >>  /tmp/report.txt
-echo "Total email address receiving duplicate email in last 1 hour-> $totdupmph" >>  /tmp/report.txt
+echo "Total email address receiving duplicate email in last 1 hour-> $totdup1" >>  /tmp/report.txt
 
 # For past 4 hour
 echo >> /tmp/report.txt
