@@ -1,3 +1,5 @@
+https://stackoverflow.com/questions/17988756/how-to-select-lines-between-two-marker-patterns-which-may-occur-multiple-times-w
+
 Host/Domain Summary: Messages Received 
 ---------------------------------------
  msg cnt   bytes   host/domain
@@ -30,3 +32,37 @@ Senders by message size
 awk '/Recipients by message count/{p=1}!$0{p=0}p' input_file
        OR
 sed -n '/Recipients by message count/,/^\s*$/ p' files.txt  | sed -n '1!{2!{$!p}}'
+
+    # Use awk with a flag to trigger the print when necessary:
+
+$ awk '/abc/{flag=1;next}/mno/{flag=0}flag' file
+def1
+ghi1
+jkl1
+def2
+ghi2
+jkl2
+How does this work?
+
+/abc/ matches lines having this text, as well as /mno/ does.
+/abc/{flag=1;next} sets the flag when the text abc is found. Then, it skips the line.
+/mno/{flag=0} unsets the flag when the text mno is found.
+The final flag is a pattern with the default action, which is to print $0: if flag is equal 1 the line is printed.
+
+
+
+
+	
+If you want to print everything between and including the pattern then you can use awk '/abc/{a=1}/mno/{print;a=0}a' file
+ 
+ 		
+Yes, @scai ! or even awk '/abc/{a=1} a; /mno/{a=0}' file - with this, putting a condition before the /mno/ we make it evaluate the line as true (and print it) before setting a=0. This way we can avoid writing print.
+ 		
+@scai @fedorqui For including pattern output, you can do awk '/abc/,/mno/' file  
+  	
+ 		
+@scai,@fedorqui : In the above how can we include abc and exclude mno. – hkasera Dec 10 '14 at 18:04
+1	
+ 		
+@hkasera awk '/abc/{flag=1}/mno/{flag=0}flag' file should make.
+
