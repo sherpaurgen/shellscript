@@ -1,0 +1,10 @@
+
+
+    mysql -e 'show status like "wsrep%"' | grep -E "comment|ready|connected|cluster_size"
+    #example output on 3 node cluster
+    wsrep_local_state_comment       Synced
+    wsrep_cluster_size      3
+    wsrep_connected ON
+    wsrep_ready     ON
+
+https://dba.stackexchange.com/questions/132769/how-to-verify-galera-is-synced
