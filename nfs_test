@@ -1,0 +1,6 @@
+#nfsserver 1
+export
+/var/www/xxx.com 12.205.84.188(rw,fsid=0,async,no_root_squash,no_subtree_check)
+/var/www/xxx.com 10.16.11.5(rw,fsid=0,async,no_root_squash,no_subtree_check)
+#web1
+12.205.84.188:/var/www/xxx.com /var/www/xxx.com/htdocs nfs auto,noatime,nolock,bg,intr,tcp,actimeo=1 0 0
